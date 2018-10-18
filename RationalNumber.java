@@ -10,7 +10,7 @@ public class RationalNumber extends RealNumber
   */
   public RationalNumber(int nume, int deno){
   super(0.0);
-    if (nume < 0 && deno < 0){
+    if (nume > 0 && deno < 0){
       nume = nume * -1;
       deno = deno * -1;
       int g = gcd(nume, deno);
@@ -19,12 +19,12 @@ public class RationalNumber extends RealNumber
       numerator = newnum;
       denominator = newden;
     }
-    if (deno < 0){
+    if (deno < 0 && nume < 0){
       nume = nume * -1;
       deno = deno * -1;
       int g = gcd(nume, deno);
-      int newnum = nume / g;
-      int newden = deno / g;
+      int newnum = nume / g * -1;
+      int newden = deno / g * -1;
       numerator = newnum;
       denominator = newden;
     }
@@ -83,7 +83,11 @@ public class RationalNumber extends RealNumber
   public String toString(){
     if (getNumerator() == 0 ){
       return "0";
-    }else{
+    }
+    if (getDenominator() == 1){
+      return "" + getNumerator();
+    }
+    else{
       return "" + getNumerator() + "/" + getDenominator();
     }
   }
@@ -119,7 +123,7 @@ public class RationalNumber extends RealNumber
   public RationalNumber multiply(RationalNumber other){
     RationalNumber mult;
     mult = new RationalNumber(this.getNumerator() * other.getNumerator(),
-    this.getDenominator() * this.getDenominator());
+    this.getDenominator() * other.getDenominator());
     return mult;
   }
 
